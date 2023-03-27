@@ -2,24 +2,28 @@ package n1exercici2;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ValidateCalculoDni {
 
-	@Test
-	void test() {
-		CalculoDni test = new CalculoDni();		
-		assertEquals('Y', test.calculLletraDni(47728341));
-		assertEquals('J', test.calculLletraDni(34835767));//34835767J 
-		assertEquals('B', test.calculLletraDni(48743957));//48743957B 
-		assertEquals('J', test.calculLletraDni(33957834));//33957834J 
-		assertEquals('R', test.calculLletraDni(77364986));//77364986R
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"47728341Y", "34835767J","48743957B","33957834J","77364986R","23047848P","47102244S","39718459N","68110016R","85626171T"})
+	void test(String string) {
+			
 		
-		assertEquals('P', test.calculLletraDni(23047848)); //23047848P
-		assertEquals('S', test.calculLletraDni(47102244));//47102244S
-		assertEquals('N', test.calculLletraDni(39718459));// 39718459N
-		assertEquals('Y', test.calculLletraDni(47728341)); // no tinc mes dnis
-		assertEquals('Y', test.calculLletraDni(47728341));// es pot substituir aquest per altres
+		char letra;		
+		String numerosString;
+		int numeros;
+		
+		letra=string.charAt(string.length()-1);		
+		numerosString = string.substring(0,8);
+		
+		numeros=Integer.parseInt(numerosString);
+		CalculoDni test = new CalculoDni();
+		
+		assertEquals(letra, test.calculLletraDni(numeros));
 		
 	}
 
